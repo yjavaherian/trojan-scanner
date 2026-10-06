@@ -14,7 +14,7 @@ Working IPs are printed immediately as they are found, then the best results are
 
 ## Download
 
-Download a `.tar.gz` archive from this repository's **Releases** section:
+Download a `.tar.gz` archive from the [Releases section](https://github.com/yjavaherian/trojan-scanner/releases/latest):
 
 | Platform | Archive suffix | Binary |
 | --- | --- | --- |
