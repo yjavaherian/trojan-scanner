@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Check
+        run: |
+          go vet ./...
+          go test ./...
+      - name: Build archives
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: bash scripts/build-release.sh "$VERSION"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ github.ref_name }}
+        run: gh release create "$VERSION" dist/*.tar.gz dist/SHA256SUMS --verify-tag --title "$VERSION" --generate-notes

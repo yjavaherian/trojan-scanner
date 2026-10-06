@@ -1,6 +1,6 @@
 # Trojan Cloudflare Scanner
 
-Fast Linux terminal scanner for finding Cloudflare IPv4 addresses that work with a Trojan-over-WebSocket server.
+Fast terminal scanner for Linux, macOS, and Windows that finds Cloudflare IPv4 addresses that work with a Trojan-over-WebSocket server.
 
 The scanner verifies real usability for each candidate IP:
 
@@ -12,10 +12,37 @@ The scanner verifies real usability for each candidate IP:
 
 Working IPs are printed immediately as they are found, then the best results are printed again at the end.
 
-## Build
+## Download
+
+Download a `.tar.gz` archive from this repository's **Releases** section:
+
+| Platform | Archive suffix | Binary |
+| --- | --- | --- |
+| Linux x64 (amd64) | `linux_amd64.tar.gz` | `trojan-scanner` |
+| macOS Apple Silicon (M series) | `darwin_arm64.tar.gz` | `trojan-scanner` |
+| Windows x64 | `windows_amd64.tar.gz` | `trojan-scanner.exe` |
+
+Extract with `tar -xzf <archive.tar.gz>` and open a terminal in the extracted directory. On Windows, run `.\trojan-scanner.exe` in PowerShell in place of `./trojan-scanner` in the examples below. Each release includes `SHA256SUMS` for archive verification.
+
+## Build from source
+
+Requires Go 1.26 or newer.
 
 ```bash
 go build -o trojan-scanner .
+```
+
+To build all three release archives locally:
+
+```bash
+bash scripts/build-release.sh v0.1.0
+```
+
+Archives are written to `dist/`. Maintainers can publish a release by pushing a version tag; GitHub Actions builds and uploads all three archives automatically:
+
+```bash
+git tag -a v0.1.0 -m 'Release v0.1.0'
+git push origin v0.1.0
 ```
 
 ## Scan Your Own IPs
